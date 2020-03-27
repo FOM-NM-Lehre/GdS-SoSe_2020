@@ -1,0 +1,84 @@
+---
+title: "Meine ersten Schritte in R (Dozentenfassung)"
+author: "Norman Markgraf"
+date: "16 10 2019"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(mosaic)
+```
+
+## Erste Schritte mit dem Datensatz *Births78*
+
+
+Wir laden zuerst das Paket **mosaic**. Das müssen wir zu beginn einer jeden Vorlsung wiederholen!
+
+```{r}
+library(mosaic)
+```
+
+Als nächstes wollen wir den Datensatz "Births78" laden:
+
+```{r}
+data(Births78)
+```
+
+Wir schauen uns einmal die ersten Beobachtungen an:
+```{r}
+head(Births78)
+```
+
+Die letzten Beobachtungen erhalten wir so:
+```{r}
+tail(Births78)
+```
+
+Schauen wir uns einmal die Geburten in dem Jahr insgesamt an:
+
+```{r}
+gf_point(births ~ date, data=Births78)
+```
+
+Okay, wir nehmen an der Unterschied in den zwei "Linien" liegt an den Wochentagen. Dann schauen wir mal nach:
+
+```{r}
+gf_point(births ~ date, color = ~ wday, data=Births78)
+```
+
+Wie speichert R nun diese Daten?
+
+```{r}
+str(Births78)
+```
+
+Wie interprätiert R das nun genau?
+
+```{r}
+inspect(Births78)
+```
+
+Wie viele Geburten gab es am 4. Juli?
+
+```{r}
+Births78 %>% # NIMM Births78 UND DANN ...
+    filter(date == "1978-07-04") # Nimm nur den 4. Juli 1978 (filtere ihn also heraus)
+```
+
+Wir wollen aber nur die Geburten und nichts anderes!
+
+```{r}
+Births78 %>% # NIMM Births78 UND DANN ...
+    filter(date == "1978-07-04") %>% # Nimm nur den 4. Juli 1978 UND DANN ...
+    select(births) # Nimm nur die Spalte "births" 
+
+```
+
+```{r}
+Births78 %>% # NIMM Births78 UND DANN ...
+    filter(date == "1978-10-05") %>% # Nimm nur den 5. Oktober 1978 UND DANN ...
+    select(wday) # Nimm nur die Spalte "wday" 
+
+```
+
